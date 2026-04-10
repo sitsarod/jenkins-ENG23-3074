@@ -30,10 +30,10 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 script {
-                    sh "kubectl apply -f k8s/deployment.yaml"
-                    sh "kubectl apply -f k8s/service.yaml"
-                    sh "kubectl apply -f k8s/ingress.yaml"
-                    sh "kubectl set image deployment/nginx-deployment nginx-container=${APP_NAME}:${IMAGE_TAG}"
+                    bat "kubectl apply -f k8s/deployment.yaml"
+                    bat "kubectl apply -f k8s/service.yaml"
+                    bat "kubectl apply -f k8s/ingress.yaml"
+                    bat "kubectl set image deployment/nginx-deployment nginx-container=${APP_NAME}:${IMAGE_TAG}"
                 }
             }
         }
@@ -41,10 +41,10 @@ pipeline {
         stage('Verify Deployment') {
             steps {
                 script {
-                    sh "kubectl rollout status deployment/nginx-deployment --timeout=120s"
-                    sh "kubectl get pods -l app=my-nginx"
-                    sh "kubectl get svc nginx-service"
-                    sh "kubectl get ingress nginx-ingress"
+                    bat "kubectl rollout status deployment/nginx-deployment --timeout=120s"
+                    bat "kubectl get pods -l app=my-nginx"
+                    bat "kubectl get svc nginx-service"
+                    bat "kubectl get ingress nginx-ingress"
                 }
             }
         }
